@@ -26,7 +26,7 @@ def get_balance(request):
 
             # Get Balance
             balance = util.get_token_balance(user_name, user_address,str(contract_address))
-            return JsonResponse({'Balance' : str(balance),'status':200})
+            return JsonResponse({'balance' : str(balance),'status':200})
 
         except custom_exception.UserException as e:
             return JsonResponse({'error ': str(e), 'status': 200})
@@ -56,7 +56,7 @@ def get_fee(request):
 
             # Get Balance
             fee = util.get_fee()
-            return JsonResponse({'Fee' : str(fee),'status':200})
+            return JsonResponse({'fee' : str(fee),'status':200})
 
         except custom_exception.UserException as e:
             return JsonResponse({'error ': str(e), 'status': 200})
@@ -91,7 +91,7 @@ def forward_token(request):
             # Transfer Token
             tx_hash = util.transfer_token(user_name = user_name, from_address=from_address, to_address=to_address, value=int(value), contract_address=contract_address)
 
-            return JsonResponse({'Transaction Status':'Initiated','Tx_Hash' : str(tx_hash), 'status':200})
+            return JsonResponse({'tx_status':'Initiated','tx_hash' : str(tx_hash), 'status':200})
 
         except custom_exception.UserException as e:
             return JsonResponse({'error ': str(e), 'status': 200})
