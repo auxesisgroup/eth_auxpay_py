@@ -20,11 +20,16 @@ category = config.get('mempool', 'category')
 
 
 def mempool_crawler():
+    """
+    Mempool Process
+    :return:
+    """
 
     obj_logger = MyLogger(logs_directory,category)
-
     obj_logger.msg_logger('#'*100)
     obj_logger.msg_logger('Getting Mempool Data')
+
+    # Get Mempool Data
     mempool_transaction_data = rpc_request(obj_logger, 'eth_getBlockByNumber', ['pending', True]).get('result',{}).get('transactions',[])
 
     obj_logger.msg_logger('Crawling Mempool Starts')
@@ -100,9 +105,13 @@ def mempool_crawler():
 
 
 def main():
+    """
+    Scheduling
+    :return:
+    """
     try:
         sched = BlockingScheduler(timezone='Asia/Kolkata')
-        sched.add_job(mempool_crawler, 'interval', id='my_job_id', seconds=3)
+        sched.add_job(mempool_crawler, 'interval', id='erc_mempool_crawler', seconds=3)
         sched.start()
     except Exception as e:
         obj_logger = MyLogger(logs_directory,category)

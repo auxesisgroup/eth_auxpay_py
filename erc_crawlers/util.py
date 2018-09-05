@@ -87,6 +87,13 @@ def query_from_filter_join(filters,type='AND'):
 
 
 def insert_sql(logger, table_name, data):
+    """
+    Custom method for Insert SQL Query
+    :param logger:
+    :param table_name:
+    :param data:
+    :return:
+    """
     try:
         db = get_db_connect(logger)
         ret_status = False
@@ -105,6 +112,14 @@ def insert_sql(logger, table_name, data):
 
 
 def find_sql(logger, table_name,filters,columns=''):
+    """
+    Custom method for Select SQL Query
+    :param logger:
+    :param table_name:
+    :param filters:
+    :param columns:
+    :return:
+    """
     try:
         data = None
         db = get_db_connect(logger)
@@ -128,6 +143,16 @@ def find_sql(logger, table_name,filters,columns=''):
 
 
 def find_sql_join(logger, table_names,filters, on_conditions, type='INNER',columns=''):
+    """
+    Custom method for Insert SQL Query with Joins
+    :param logger:
+    :param table_names:
+    :param filters:
+    :param on_conditions:
+    :param type:
+    :param columns:
+    :return:
+    """
     try:
         data = None
         db = get_db_connect(logger)
@@ -159,6 +184,14 @@ def find_sql_join(logger, table_names,filters, on_conditions, type='INNER',colum
 
 
 def update_sql(logger, table_name,filters,updated_values):
+    """
+    Custom method for Update SQL Query
+    :param logger:
+    :param table_name:
+    :param filters:
+    :param updated_values:
+    :return:
+    """
     try:
         db = get_db_connect(logger)
         ret_status = False
@@ -177,6 +210,14 @@ def update_sql(logger, table_name,filters,updated_values):
 
 
 def increment_sql(logger, table_name,filters,column):
+    """
+    Custom method for Update(+1) SQL Query
+    :param logger:
+    :param table_name:
+    :param filters:
+    :param column:
+    :return:
+    """
     try:
         db = get_db_connect(logger)
         ret_status = False
@@ -217,6 +258,14 @@ def rpc_request(logger, method,params,url=''):
 
 
 def send_notification(logger, notif_url,notif_params, queue):
+    """
+    Sending Notification to Rabbit MQ
+    :param logger:
+    :param notif_url:
+    :param notif_params:
+    :param queue:
+    :return:
+    """
     try:
         if not notif_url:
             logger.error_logger('>>>>>>>>>> Notification URL is empty : %s'%(notif_params))
@@ -231,7 +280,6 @@ def send_notification(logger, notif_url,notif_params, queue):
         channel.queue_declare(queue=queue, durable=True)
         channel.basic_publish(exchange='', routing_key=queue, body=json.dumps(notif_params),properties=pika.BasicProperties(delivery_mode=2))
         connection.close()
-        # response = requests.post(notif_url, data=notif_params)
         logger.msg_logger('>>>>>>>>>> Hook Queue : %s ' % (queue))
     except Exception as e:
         logger.error_logger('send_notification : %s'%(e))

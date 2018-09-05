@@ -22,12 +22,18 @@ logs_directory = config.get('block', 'logs')
 category = config.get('block', 'category')
 
 def block_crawler():
+    """
+    Block Crawling process
+    :return:
+    """
 
     obj_logger = MyLogger(logs_directory, category)
-
     obj_logger.msg_logger('Getting Block Numbers.....')
+
+    # Get Current Block from RPC
     current_block = int(rpc_request(obj_logger,'eth_blockNumber',[]).get('result',0),16)
     crawled_blocks = int(redis_conn.get('eth_erc_blocks_crawled') or 0)
+
     obj_logger.msg_logger('Crawled Block Number : %s'%(crawled_blocks))
     obj_logger.msg_logger('Current Block Number : %s' % (current_block))
     obj_logger.msg_logger('Pending : %s' % (current_block - crawled_blocks))
@@ -35,12 +41,13 @@ def block_crawler():
     if current_block > crawled_blocks:
 
         for block_number in range(crawled_blocks + 1,current_block + 1):
+
             obj_logger.msg_logger('#' * 100)
             obj_logger.msg_logger('Crawling Block : %s || Current Block : %s'%(block_number,current_block))
             obj_logger.msg_logger('Pending : %s' % (current_block - block_number))
             obj_logger.msg_logger('Start :%s'%(datetime.datetime.now()))
 
-            # Increment Confirmations
+            # Increment Confirmations for tx_id whose 1 confirmation is already sent
             for tx_hash in redis_conn.smembers('eth_erc_pct_set'):
                 tx_hash = tx_hash.decode('utf-8')
                 data = find_sql_join(logger=obj_logger,
@@ -163,9 +170,13 @@ def block_crawler():
 
 
 def main():
+    """
+    Scheduling
+    :return:
+    """
     try:
         sched = BlockingScheduler(timezone='Asia/Kolkata')
-        sched.add_job(block_crawler, 'interval', id='my_job_id', seconds=3)
+        sched.add_job(block_crawler, 'interval', id='erc_block_crawler', seconds=3)
         sched.start()
     except Exception as e:
         obj_logger = MyLogger(logs_directory, category)

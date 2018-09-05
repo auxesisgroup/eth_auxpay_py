@@ -1,4 +1,7 @@
 class UserExceptionStr():
+    """
+    Raw Data for End User Information/Exception
+    """
     some_error_occurred = 'Some Error Occurred'
     bad_request = 'Bad Request!'
     specify_required_fields = 'Please specify all required fields!'

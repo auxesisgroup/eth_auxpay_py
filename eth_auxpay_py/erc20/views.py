@@ -9,6 +9,11 @@ from django.views.decorators.csrf import csrf_exempt
 @util.who_is_hitting
 @util.valid_user
 def get_balance(request):
+    """
+    End point for Getting Balance
+    :param request: user_name, token, address, contract_address
+    :return:
+    """
     if request.method == 'POST':
         try:
             user_name = request.POST.get('user_name')
@@ -35,6 +40,11 @@ def get_balance(request):
 @util.who_is_hitting
 @util.valid_user
 def get_fee(request):
+    """
+    End Point for Getting Token Transfer fee
+    :param request: user_name, token
+    :return:
+    """
     if request.method == 'POST':
         try:
 
@@ -61,6 +71,11 @@ def get_fee(request):
 @util.who_is_hitting
 @util.valid_user
 def forward_token(request):
+    """
+    End point for forwarding Token
+    :param request: user_name, token, from_address, to_address, value, contract_address
+    :return:
+    """
     if request.method == 'POST':
         try:
             user_name = request.POST.get('user_name')

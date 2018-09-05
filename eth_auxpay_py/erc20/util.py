@@ -127,6 +127,11 @@ def who_is_hitting(func):
 
 
 def valid_user(func):
+    """
+    Calidate user Tokens
+    :param func:
+    :return:
+    """
 
     def validate_user(*args,**kwargs):
         try:

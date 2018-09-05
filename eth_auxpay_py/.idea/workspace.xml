@@ -11,21 +11,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/erc20/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+            <state relative-caret-position="195">
+              <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
               <folding>
-                <element signature="e#312#1280#0" />
+                <element signature="e#317#1285#0" />
+                <element signature="e#312#363#1" />
                 <element signature="e#349#1280#0" />
                 <element signature="e#366#886#0" />
                 <element signature="e#1050#1280#0" />
-                <element signature="e#1360#2110#0" />
+                <element signature="e#1487#2248#0" />
+                <element signature="e#1487#1538#1" />
                 <element signature="e#1397#2110#0" />
                 <element signature="e#1415#1713#0" />
                 <element signature="e#1878#2110#0" />
-                <element signature="e#2196#3407#0" />
+                <element signature="e#2434#3652#0" />
+                <element signature="e#2434#2489#1" />
                 <element signature="e#2233#3407#0" />
                 <element signature="e#2250#3010#0" />
                 <element signature="e#3175#3407#0" />
@@ -34,10 +37,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="util.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="custom_exception.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/erc20/custom_exception.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="54" selection-start-line="2" selection-start-column="54" selection-end-line="2" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="exception_str.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/erc20/exception_str.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="util.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/erc20/util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
+            <state relative-caret-position="353">
               <caret line="85" column="25" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="25" />
               <folding>
                 <element signature="e#676#1980#0" />
@@ -56,7 +77,8 @@
                 <element signature="e#2867#2959#0" />
                 <element signature="e#3218#3492#0" />
                 <element signature="e#3565#3718#0" />
-                <element signature="e#3772#4693#0" />
+                <element signature="e#3777#4698#0" />
+                <element signature="e#3771#3819#1" />
                 <element signature="e#3815#4666#0" />
                 <element signature="e#3832#4469#0" />
                 <element signature="e#4514#4666#0" />
@@ -154,13 +176,13 @@
         <option value="$PROJECT_DIR$/erc20/ExceptionStr.py" />
         <option value="$PROJECT_DIR$/erc20/References.py" />
         <option value="$PROJECT_DIR$/erc20/ref_data.py" />
-        <option value="$PROJECT_DIR$/erc20/custom_exception.py" />
         <option value="$PROJECT_DIR$/erc20/conf_data.py" />
         <option value="$PROJECT_DIR$/erc20/urls.py" />
-        <option value="$PROJECT_DIR$/erc20/exception_str.py" />
         <option value="$PROJECT_DIR$/erc20/models.py" />
         <option value="$PROJECT_DIR$/erc20/util.py" />
         <option value="$PROJECT_DIR$/erc20/views.py" />
+        <option value="$PROJECT_DIR$/erc20/custom_exception.py" />
+        <option value="$PROJECT_DIR$/erc20/exception_str.py" />
       </list>
     </option>
   </component>
@@ -273,6 +295,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="61" y="-4" width="1859" height="1084" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20333512" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -331,18 +354,114 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/erc20/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="85" column="66" selection-start-line="85" selection-start-column="66" selection-end-line="85" selection-end-column="66" />
+        <state relative-caret-position="105">
+          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
           <folding>
-            <element signature="e#312#1280#0" />
+            <element signature="e#317#1285#0" />
+            <element signature="e#312#363#1" />
             <element signature="e#349#1280#0" />
             <element signature="e#366#886#0" />
             <element signature="e#1050#1280#0" />
-            <element signature="e#1360#2110#0" />
+            <element signature="e#1487#2248#0" />
+            <element signature="e#1487#1538#1" />
             <element signature="e#1397#2110#0" />
             <element signature="e#1415#1713#0" />
             <element signature="e#1878#2110#0" />
-            <element signature="e#2196#3407#0" />
+            <element signature="e#2434#3652#0" />
+            <element signature="e#2434#2489#1" />
+            <element signature="e#2233#3407#0" />
+            <element signature="e#2250#3010#0" />
+            <element signature="e#3175#3407#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/erc20/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="85" column="25" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="25" />
+          <folding>
+            <element signature="e#676#1980#0" />
+            <element signature="e#676#718#1" />
+            <element signature="e#774#1478#0" />
+            <element signature="e#1518#1609#0" />
+            <element signature="e#1654#1980#0" />
+            <element signature="e#1799#1979#0" />
+            <element signature="e#2015#2246#0" />
+            <element signature="e#2015#2047#1" />
+            <element signature="e#2279#3742#0" />
+            <element signature="e#2279#2345#1" />
+            <element signature="e#2392#3718#0" />
+            <element signature="e#2409#3521#0" />
+            <element signature="e#2715#2808#0" />
+            <element signature="e#2867#2959#0" />
+            <element signature="e#3218#3492#0" />
+            <element signature="e#3565#3718#0" />
+            <element signature="e#3777#4698#0" />
+            <element signature="e#3771#3819#1" />
+            <element signature="e#3815#4666#0" />
+            <element signature="e#3832#4469#0" />
+            <element signature="e#4514#4666#0" />
+            <element signature="e#4729#4905#0" />
+            <element signature="e#4729#4767#1" />
+            <element signature="e#4966#5432#0" />
+            <element signature="e#4966#4999#1" />
+            <element signature="e#5018#5201#0" />
+            <element signature="e#5237#5432#0" />
+            <element signature="e#5471#5865#0" />
+            <element signature="e#5471#5513#1" />
+            <element signature="e#5531#5618#0" />
+            <element signature="e#5654#5865#0" />
+            <element signature="e#5931#6389#0" />
+            <element signature="e#5931#5969#1" />
+            <element signature="e#5987#6141#0" />
+            <element signature="e#6177#6389#0" />
+            <element signature="e#6461#7955#0" />
+            <element signature="e#6461#6502#1" />
+            <element signature="e#6520#7394#0" />
+            <element signature="e#7146#7276#0" />
+            <element signature="e#7160#7244#0" />
+            <element signature="e#7510#7718#0" />
+            <element signature="e#7754#7955#0" />
+            <element signature="e#7989#8477#0" />
+            <element signature="e#7989#8030#1" />
+            <element signature="e#8048#8243#0" />
+            <element signature="e#8280#8477#0" />
+            <element signature="e#8530#9073#0" />
+            <element signature="e#8530#8608#1" />
+            <element signature="e#8626#8829#0" />
+            <element signature="e#8866#9073#0" />
+            <element signature="e#9166#10074#0" />
+            <element signature="e#9166#9205#1" />
+            <element signature="e#9223#9831#0" />
+            <element signature="e#9472#9712#0" />
+            <element signature="e#9868#10074#0" />
+            <element signature="e#10163#12201#0" />
+            <element signature="e#10163#10196#1" />
+            <element signature="e#10215#11634#0" />
+            <element signature="e#11750#11961#0" />
+            <element signature="e#11997#12201#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/erc20/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1230">
+          <caret line="85" column="66" selection-start-line="85" selection-start-column="66" selection-end-line="85" selection-end-column="66" />
+          <folding>
+            <element signature="e#317#1285#0" />
+            <element signature="e#312#363#1" />
+            <element signature="e#349#1280#0" />
+            <element signature="e#366#886#0" />
+            <element signature="e#1050#1280#0" />
+            <element signature="e#1487#2248#0" />
+            <element signature="e#1487#1538#1" />
+            <element signature="e#1397#2110#0" />
+            <element signature="e#1415#1713#0" />
+            <element signature="e#1878#2110#0" />
+            <element signature="e#2434#3652#0" />
+            <element signature="e#2434#2489#1" />
             <element signature="e#2233#3407#0" />
             <element signature="e#2250#3010#0" />
             <element signature="e#3175#3407#0" />
@@ -371,7 +490,8 @@
             <element signature="e#2867#2959#0" />
             <element signature="e#3218#3492#0" />
             <element signature="e#3565#3718#0" />
-            <element signature="e#3772#4693#0" />
+            <element signature="e#3777#4698#0" />
+            <element signature="e#3771#3819#1" />
             <element signature="e#3815#4666#0" />
             <element signature="e#3832#4469#0" />
             <element signature="e#4514#4666#0" />
@@ -447,13 +567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/erc20/custom_exception.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/erc20/conf_data.py" />
     <entry file="file:///usr/local/lib/python3.6/dist-packages/pymysql/cursors.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -476,13 +589,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/erc20/exception_str.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="20" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/erc20/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -497,9 +603,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/erc20/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+          <folding>
+            <element signature="e#317#1285#0" />
+            <element signature="e#312#363#1" />
+            <element signature="e#349#1280#0" />
+            <element signature="e#366#886#0" />
+            <element signature="e#1050#1280#0" />
+            <element signature="e#1487#2248#0" />
+            <element signature="e#1487#1538#1" />
+            <element signature="e#1397#2110#0" />
+            <element signature="e#1415#1713#0" />
+            <element signature="e#1878#2110#0" />
+            <element signature="e#2434#3652#0" />
+            <element signature="e#2434#2489#1" />
+            <element signature="e#2233#3407#0" />
+            <element signature="e#2250#3010#0" />
+            <element signature="e#3175#3407#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/erc20/custom_exception.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="54" selection-start-line="2" selection-start-column="54" selection-end-line="2" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/erc20/exception_str.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/erc20/util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
+        <state relative-caret-position="353">
           <caret line="85" column="25" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="25" />
           <folding>
             <element signature="e#676#1980#0" />
@@ -518,7 +662,8 @@
             <element signature="e#2867#2959#0" />
             <element signature="e#3218#3492#0" />
             <element signature="e#3565#3718#0" />
-            <element signature="e#3772#4693#0" />
+            <element signature="e#3777#4698#0" />
+            <element signature="e#3771#3819#1" />
             <element signature="e#3815#4666#0" />
             <element signature="e#3832#4469#0" />
             <element signature="e#4514#4666#0" />
@@ -561,27 +706,6 @@
             <element signature="e#10215#11634#0" />
             <element signature="e#11750#11961#0" />
             <element signature="e#11997#12201#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/erc20/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
-          <folding>
-            <element signature="e#312#1280#0" />
-            <element signature="e#349#1280#0" />
-            <element signature="e#366#886#0" />
-            <element signature="e#1050#1280#0" />
-            <element signature="e#1360#2110#0" />
-            <element signature="e#1397#2110#0" />
-            <element signature="e#1415#1713#0" />
-            <element signature="e#1878#2110#0" />
-            <element signature="e#2196#3407#0" />
-            <element signature="e#2233#3407#0" />
-            <element signature="e#2250#3010#0" />
-            <element signature="e#3175#3407#0" />
           </folding>
         </state>
       </provider>

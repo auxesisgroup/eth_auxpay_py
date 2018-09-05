@@ -18,21 +18,33 @@ category = config.get('hook_main', 'category')
 
 
 def callback(ch, method, properties, body):
+    """
+    This method is called every time there is a new element in queue (var : queue)
+    :param ch:
+    :param method:
+    :param properties:
+    :param body:
+    :return:
+    """
     try:
 
+        # Logs
         obj_logger = MyLogger(logs_directory, category)
         obj_logger.msg_logger('#'*100)
         obj_logger.msg_logger('Getting Data : %s'%(datetime.datetime.now()))
 
-        # Data
+        # Data from Queue
         data = json.loads(body)
         notification_url = data['notification_url']
         data.pop('notification_url')
         notification_params = data
 
         obj_logger.msg_logger('>>>>>>>>>> Sending Notification : %s || %s' % (notification_url, notification_params))
+        # Send Notification
         requests.post(notification_url, data=json.dumps(notification_params), headers=headers)
         obj_logger.msg_logger('>>>>>>>>>> Notification Success : %s || %s' % (notification_url, notification_params))
+
+        # Insert in DB
         insert_sql(logger=obj_logger,table_name='notification_logs', data={
             'tx_hash' : notification_params['tx_hash'],
             'notification_url ': notification_url,
@@ -41,7 +53,7 @@ def callback(ch, method, properties, body):
             'Status': 'Success'
         })
     except Exception as e:
-
+        # If there is an Exception , Send the Notification to Exception Queue - which will be handled manually
         obj_logger.error_logger('>>>>>>>>>> Notification Failure : %s || %s || %s' % (e, notification_url, notification_params))
         exception_queue = config.get('hook_excpetion', 'queue')
         obj_logger.msg_logger('>>>>>>>>>> Pushing to Exception Queue : %s'%(exception_queue))
