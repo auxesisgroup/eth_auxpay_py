@@ -138,7 +138,7 @@ class CommonUtil():
                 return response
             except Exception as e:
                 obj_logger.error_logger('who_is_hitting : %s'%(e))
-                return JsonResponse({'error ': exception_str.UserExceptionStr.bad_request, 'status': 200})
+                return JsonResponse({'error ': exception_str.UserExceptionStr.bad_request, 'status': 400})
         return user_details
 
     def valid_user(self, func):
@@ -155,18 +155,18 @@ class CommonUtil():
                 token = request.POST.get('token')
 
                 if not (user_name and token):
-                    return JsonResponse({'error ': exception_str.UserExceptionStr.specify_required_fields, 'status': 200})
+                    return JsonResponse({'error ': exception_str.UserExceptionStr.specify_required_fields, 'status': 400})
 
                 obj_logger = MyLogger(self.logs_directory, self.category)
 
                 if models.find_sql(logger=obj_logger, table_name='user_master', filters= {'user_name':user_name, 'token': token}):
                     return func(*args,**kwargs)
                 else:
-                    return JsonResponse({'error ': exception_str.UserExceptionStr.invalid_user, 'status': 200})
+                    return JsonResponse({'error ': exception_str.UserExceptionStr.invalid_user, 'status': 400})
 
             except Exception as e:
                 obj_logger.error_logger('validate_user : %s'%(e))
-                return JsonResponse({'error ': exception_str.UserExceptionStr.bad_request, 'status': 200})
+                return JsonResponse({'error ': exception_str.UserExceptionStr.bad_request, 'status': 400})
 
 
         return validate_user
