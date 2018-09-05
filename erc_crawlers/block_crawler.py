@@ -3,7 +3,7 @@ import datetime
 import redis
 from apscheduler.schedulers.blocking import BlockingScheduler
 import web3
-from eth_util import insert_sql,increment_sql,rpc_request,update_sql,send_notification,find_sql_join,config,MyLogger
+from util import insert_sql,increment_sql,rpc_request,update_sql,send_notification,find_sql_join,config,MyLogger
 
 # Redis Connection
 pool = redis.ConnectionPool(

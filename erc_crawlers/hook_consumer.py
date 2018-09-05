@@ -2,7 +2,7 @@ import pika
 import requests
 import json
 import datetime
-from eth_util import MyLogger,config,send_notification,insert_sql
+from util import MyLogger,config,send_notification,insert_sql
 
 headers = {'Content-type': 'application/json'}
 
