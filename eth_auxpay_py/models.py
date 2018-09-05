@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import pymysql
-from . import util
-
 import configparser
 
 # Create your models here.
@@ -24,7 +22,7 @@ def get_db_connect(logger):
         )
         return db
     except Exception as e:
-        logger.error_logger("Error get_db_connect : " + str(e))
+        logger.msg_logger("Error get_db_connect : " + str(e))
         raise Exception(str(e))
 
 
@@ -40,7 +38,7 @@ def insert_sql(logger, table_name, data):
         logger.msg_logger('>>>>>>>> MYSQL Insert Success : %s || %s' % (query, str(data)))
         ret_status = True
     except Exception as e:
-        logger.msg_logger('Error insert_sql : %s :::::: %s'%(str(e),query))
+        logger.msg_logger('Error insert_sql : %s | %s'%(str(e),query))
     finally:
         if db : db.close()
         return ret_status
@@ -66,7 +64,7 @@ def find_sql(logger, table_name,filters,columns=''):
         cursor.execute(query)
         data = cursor.fetchall()
     except Exception as e:
-        logger.error_logger('find_sql : %s :::::: %s'%(str(e),query))
+        logger.msg_logger('find_sql : %s | %s'%(str(e),query))
     finally:
         if db: db.close()
         return data
