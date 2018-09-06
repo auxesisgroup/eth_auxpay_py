@@ -92,7 +92,7 @@ def generate_address(request):
             # Generate address
             address = util.generate_address(user_name, token)
 
-            return JsonResponse({'tx_status':'Initiated', 'address' : str(address),'status':200})
+            return JsonResponse({'address' : str(address),'status':200})
 
         except custom_exception.UserException as e:
             return JsonResponse({'error': str(e), 'status': 400})
@@ -125,7 +125,7 @@ def forward_ethereum(request):
             # Generate address
             tx_hash = util.forward_etherum(user_name, token, from_address, to_address, int(value))
 
-            return JsonResponse({'tx_hash' : str(tx_hash),'status':200})
+            return JsonResponse({'tx_status':'Initiated', 'tx_hash' : str(tx_hash),'status':200})
 
         except custom_exception.UserException as e:
             return JsonResponse({'error': str(e), 'status': 400})
