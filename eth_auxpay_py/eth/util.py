@@ -115,7 +115,7 @@ def sign_transaction(from_address, to_address, value, private_key):
             'chainId' : 3,
         }
 
-        signed = web3.Web3().eth.account.signTransaction(transaction, private_key)
+        signed = web3.Account.signTransaction(transaction, private_key)
         return signed.rawTransaction.hex()
 
     except Exception as e:

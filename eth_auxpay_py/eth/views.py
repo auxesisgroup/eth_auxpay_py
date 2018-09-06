@@ -10,7 +10,6 @@ import web3
 
 obj_common = common_util.CommonUtil(log=util.log)
 
-
 @csrf_exempt
 @obj_common.who_is_hitting
 @obj_common.valid_user
@@ -34,12 +33,12 @@ def get_fee(request):
             return JsonResponse({'fee' : str(fee),'status':200})
 
         except custom_exception.UserException as e:
-            return JsonResponse({'error ': str(e), 'status': 400})
+            return JsonResponse({'error': str(e), 'status': 400})
 
         except Exception as e:
             obj_logger = common_util.MyLogger(util.logs_directory, util.category)
             obj_logger.error_logger('get_balance : %s' % (str(e)))
-            return JsonResponse({'error ': exception_str.UserExceptionStr.bad_request, 'status': 400})
+            return JsonResponse({'error': exception_str.UserExceptionStr.bad_request, 'status': 400})
 
 
 @csrf_exempt
@@ -66,11 +65,11 @@ def get_balance(request):
             return JsonResponse({'balance' : str(balance),'status':200})
 
         except custom_exception.UserException as e:
-            return JsonResponse({'error ': str(e), 'status': 400})
+            return JsonResponse({'error': str(e), 'status': 400})
         except Exception as e:
             obj_logger = common_util.MyLogger(util.logs_directory, util.category)
             obj_logger.error_logger('get_balance : %s'%(str(e)))
-            return JsonResponse({'error ': exception_str.UserExceptionStr.bad_request, 'status': 400})
+            return JsonResponse({'error': exception_str.UserExceptionStr.bad_request, 'status': 400})
 
 
 @csrf_exempt
@@ -93,14 +92,14 @@ def generate_address(request):
             # Generate address
             address = util.generate_address(user_name, token)
 
-            return JsonResponse({'address' : str(address),'status':200})
+            return JsonResponse({'tx_status':'Initiated', 'address' : str(address),'status':200})
 
         except custom_exception.UserException as e:
-            return JsonResponse({'error ': str(e), 'status': 400})
+            return JsonResponse({'error': str(e), 'status': 400})
         except Exception as e:
             obj_logger = common_util.MyLogger(util.logs_directory, util.category)
             obj_logger.error_logger('get_balance : %s'%(str(e)))
-            return JsonResponse({'error ': exception_str.UserExceptionStr.bad_request, 'status': 400})
+            return JsonResponse({'error': exception_str.UserExceptionStr.bad_request, 'status': 400})
 
 
 @csrf_exempt
@@ -124,13 +123,13 @@ def forward_ethereum(request):
             common_util.check_if_present(user_name, token, from_address, to_address, value)
 
             # Generate address
-            address = util.forward_etherum(user_name, token, from_address, to_address, value)
+            tx_hash = util.forward_etherum(user_name, token, from_address, to_address, int(value))
 
-            return JsonResponse({'address' : str(address),'status':200})
+            return JsonResponse({'tx_hash' : str(tx_hash),'status':200})
 
         except custom_exception.UserException as e:
-            return JsonResponse({'error ': str(e), 'status': 400})
+            return JsonResponse({'error': str(e), 'status': 400})
         except Exception as e:
             obj_logger = common_util.MyLogger(util.logs_directory, util.category)
             obj_logger.error_logger('get_balance : %s'%(str(e)))
-            return JsonResponse({'error ': exception_str.UserExceptionStr.bad_request, 'status': 400})
+            return JsonResponse({'error': exception_str.UserExceptionStr.bad_request, 'status': 400})

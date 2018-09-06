@@ -108,7 +108,7 @@ def sign_transaction(from_address, to_address, value, contract_address, private_
             'nonce': con.eth.getTransactionCount(from_address),
         }
 
-        signed = web3.Web3().eth.account.signTransaction(transaction, private_key)
+        signed = web3.Account.signTransaction(transaction, private_key)
         return signed.rawTransaction.hex()
 
     except Exception as e:
