@@ -5,6 +5,15 @@ import models
 import exception_str
 import custom_exception
 import common_util
+import redis
+
+# Redis Connection
+pool = redis.ConnectionPool(
+    host = common_util.config.get('redis', 'host'),
+    port = int(common_util.config.get('redis', 'port')),
+    db = int(common_util.config.get('redis', 'db'))
+)
+redis_conn = redis.Redis(connection_pool=pool)
 
 # Gas Limit
 gas_limit = int(common_util.config.get('eth', 'gas_limit'))
@@ -88,6 +97,7 @@ def generate_address(user_name, token):
         if private_key != dec_pk:
             raise custom_exception.UserException(exception_str.UserExceptionStr.some_error_occurred)
 
+        redis_conn.sadd('eth_aw_set', address.encode('utf-8'))
         return address
 
     except custom_exception.UserException:

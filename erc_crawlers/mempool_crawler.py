@@ -39,6 +39,7 @@ def mempool_crawler():
         tx_hash = tx['hash']
         contract_address = tx['to'] # To address in ERC 20 Transaction is Contract Address
 
+        # TODO - if tx hashes are not matching in redis, then we need to encode/decode utf-8
         # Redis Check
         if (not redis_conn.sismember('eth_erc_zct_set',tx_hash)) and (redis_conn.sismember('eth_erc_aw_set',contract_address)):
             obj_logger.msg_logger('>>>>>>>> Transaction Found in Mempool : %s'%(tx_hash))
