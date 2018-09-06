@@ -11,10 +11,11 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost')
 channel = connection.channel()
 
 # Queue
-queue = config.get('hook_main', 'queue')
+queue = config.get('erc_hook_main', 'queue')
 channel.queue_declare(queue=queue,durable=True)
-logs_directory = config.get('hook_main', 'logs')
-category = config.get('hook_main', 'category')
+logs_directory = config.get('erc_hook_main', 'logs')
+category = config.get('erc_hook_main', 'category')
+exception_queue = config.get('erc_hook_excpetion', 'queue')
 
 
 def callback(ch, method, properties, body):
@@ -55,7 +56,6 @@ def callback(ch, method, properties, body):
     except Exception as e:
         # If there is an Exception , Send the Notification to Exception Queue - which will be handled manually
         obj_logger.error_logger('>>>>>>>>>> Notification Failure : %s || %s || %s' % (e, notification_url, notification_params))
-        exception_queue = config.get('hook_excpetion', 'queue')
         obj_logger.msg_logger('>>>>>>>>>> Pushing to Exception Queue : %s'%(exception_queue))
         send_notification(obj_logger, notification_url, notification_params, queue=exception_queue)
 
@@ -64,7 +64,6 @@ def callback(ch, method, properties, body):
         # We are ACK in both the case of success or failure because if there is no error then its ok
         # But if there is an error then we are sending it to Exception Queue . So in both the case we can delete this from main queue
         ch.basic_ack(delivery_tag=method.delivery_tag)
-
 
 channel.basic_consume(callback,queue=queue)
 channel.start_consuming()

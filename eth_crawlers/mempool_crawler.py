@@ -1,8 +1,6 @@
-import json
 import datetime
 import redis
 from apscheduler.schedulers.blocking import BlockingScheduler
-import web3
 from util import insert_sql, rpc_request, send_notification, find_sql_join, MyLogger, config
 
 # Redis Connection
@@ -14,11 +12,9 @@ pool = redis.ConnectionPool(
 redis_conn = redis.Redis(connection_pool=pool)
 
 # Blockchain Node
-abi_file = config.get('erc20', 'abi')
-logs_directory = config.get('erc_mempool', 'logs')
-category = config.get('erc_mempool', 'category')
-hook_queue = config.get('erc_hook_main', 'queue')
-
+logs_directory = config.get('eth_mempool', 'logs')
+category = config.get('eth_mempool', 'category')
+hook_queue = config.get('eth_hook_main', 'queue')
 
 def mempool_crawler():
     """
@@ -38,37 +34,27 @@ def mempool_crawler():
     for tx in mempool_transaction_data:
 
         tx_hash = tx['hash']
-        contract_address = tx['to'] # To address in ERC 20 Transaction is Contract Address
+        to_address = tx['to']
 
-        # TODO - if tx hashes are not matching in redis, then we need to encode/decode utf-8
         # Redis Check
-        if (not redis_conn.sismember('eth_erc_zct_set',tx_hash)) and (redis_conn.sismember('eth_erc_aw_set',contract_address)):
+        if (not redis_conn.sismember('eth_eth_zct_set',tx_hash)) and (redis_conn.sismember('eth_eth_aw_set',to_address)):
             obj_logger.msg_logger('>>>>>>>> Transaction Found in Mempool : %s'%(tx_hash))
 
             from_address = tx['from']
-            bid_id = -1
+            value = int(tx['value'],16)
+            bid_id = -2
             confirmations = 0
             block_number = -1
-            flag = 'erc20'
+            flag = 'eth_incoming'
             sys_timestamp = datetime.datetime.now()
-
-            # Decoding Inputs
-            input = tx['input']
-            with open(abi_file, 'r') as abi_definition:
-                abi = json.load(abi_definition)
-            contract_obj = web3.Web3().eth.contract(address=web3.Web3().toChecksumAddress(contract_address), abi=abi)
-            params = contract_obj.decode_function_input(input)
-            to_address = params[1].get('_to')
-            value = params[1].get('_value')
 
             # Insert in DB
             result = insert_sql(
                 logger=obj_logger,
-                table_name= 'erc_transactions',
+                table_name= 'eth_transactions',
                 data={
                 'from_address': from_address,
                 'to_address': to_address,
-                'contract_address': contract_address,
                 'tx_hash': tx_hash,
                 'bid_id': bid_id,
                 'confirmations': confirmations,
@@ -81,16 +67,15 @@ def mempool_crawler():
 
             if result:
                 notif_url = find_sql_join(logger=obj_logger,
-                    table_names=['user_master', 'erc_address_master'],
-                    filters={'erc_address_master.address': to_address},
-                    on_conditions={'user_master.user_name': 'erc_address_master.user_name'},
+                    table_names=['user_master', 'address_master'],
+                    filters={'address_master.address': to_address},
+                    on_conditions={'user_master.user_name': 'address_master.user_name'},
                     columns=['user_master.notification_url']
                 )[0]['notification_url']
 
                 notif_params = {
                     'from_address': from_address,
                     'to_address': to_address,
-                    'contract_address': contract_address,
                     'tx_hash': tx_hash,
                     'bid_id': bid_id,
                     'confirmations': confirmations,
@@ -98,9 +83,9 @@ def mempool_crawler():
                     'value': value,
                     'flag': flag
                 }
-                send_notification(obj_logger,notif_url,notif_params,queue=hook_main)
-                obj_logger.msg_logger('>>>>>>>> Adding to eth_erc_zct_set : %s' % (tx_hash))
-                redis_conn.sadd('eth_erc_zct_set', tx_hash.encode('utf-8')) # To cross check in Block Crawler and not to send multiple notification
+                send_notification(obj_logger,notif_url,notif_params,queue=hook_queue)
+                obj_logger.msg_logger('>>>>>>>> Adding to eth_eth_zct_set : %s' % (tx_hash))
+                redis_conn.sadd('eth_eth_zct_set', tx_hash.encode('utf-8')) # To cross check in Block Crawler and not to send multiple notification
 
     obj_logger.msg_logger('Crawling Mempool Ends')
     obj_logger.msg_logger('#' * 100)
@@ -113,7 +98,7 @@ def main():
     """
     try:
         sched = BlockingScheduler(timezone='Asia/Kolkata')
-        sched.add_job(mempool_crawler, 'interval', id='erc_mempool_crawler', seconds=3)
+        sched.add_job(mempool_crawler, 'interval', id='eth_mempool_crawler', seconds=3)
         sched.start()
     except Exception as e:
         obj_logger = MyLogger(logs_directory,category)

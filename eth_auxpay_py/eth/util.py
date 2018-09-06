@@ -97,7 +97,7 @@ def generate_address(user_name, token):
         if private_key != dec_pk:
             raise custom_exception.UserException(exception_str.UserExceptionStr.some_error_occurred)
 
-        redis_conn.sadd('eth_aw_set', address.encode('utf-8'))
+        redis_conn.sadd('eth_eth_aw_set', address.encode('utf-8'))
         return address
 
     except custom_exception.UserException:
@@ -117,7 +117,7 @@ def sign_transaction(from_address, to_address, value, private_key):
 
         # Sign TODO - Confirm Bid ID
         transaction = {
-            'to': to_address,
+            'to': web3.Web3().toChecksumAddress(to_address),
             'value': web3.Web3().toHex(value),
             'gas': gas_limit,
             'gasPrice': con.eth.gasPrice,

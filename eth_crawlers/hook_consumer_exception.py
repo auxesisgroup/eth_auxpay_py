@@ -11,10 +11,10 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost')
 channel = connection.channel()
 
 # Queue
-queue = config.get('erc_hook_excpetion', 'queue')
+queue = config.get('eth_hook_excpetion', 'queue')
 channel.queue_declare(queue=queue,durable=True)
-logs_directory = config.get('erc_hook_excpetion', 'logs')
-category = config.get('erc_hook_excpetion', 'category')
+logs_directory = config.get('eth_hook_excpetion', 'logs')
+category = config.get('eth_hook_excpetion', 'category')
 
 
 def callback(ch, method, properties, body):
