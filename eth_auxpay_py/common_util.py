@@ -23,6 +23,12 @@ config.read(conf_file)
 # Node URL
 url = config.get('node', 'url')
 
+# Encryption
+l1_start = int(config.get('encryption', 'l1_start'))
+l1_end = int(config.get('encryption', 'l1_end'))
+l2_start = int(config.get('encryption', 'l2_start'))
+l2_end = int(config.get('encryption', 'l2_end'))
+
 # for RPC Request
 headers = {'Content-type': 'application/json'}
 payload = {"jsonrpc": "2.0", "id": 1}
@@ -224,17 +230,22 @@ class AESCipher():
 
     def __init__(self, key, log):
         try:
+            # Logs
             self.logs_directory, self.category = get_config(log)
             self.obj_logger = MyLogger(self.logs_directory, self.category)
+
             self.bs = 32
-            self.key = hashlib.sha256(key.encode()).digest()
+            self.key = self.generate_key(key)
+            self.key = hashlib.sha256(self.key.encode()).digest()
+
         except Exception as e:
-            self.obj_logger.error_logger("Error AESCipher __init__ : " + str(e))
+            if self.obj_logger : self.obj_logger.error_logger("Error AESCipher __init__ : " + str(e))
             raise custom_exception.UserException(exception_str.UserExceptionStr.some_error_occurred)
 
     def encrypt(self, raw):
         try:
             raw = self._pad(raw)
+            raw = raw.encode('utf-8')
             iv = Random.new().read(AES.block_size)
             cipher = AES.new(self.key, AES.MODE_CBC, iv)
             return base64.b64encode(iv + cipher.encrypt(raw))
@@ -247,7 +258,7 @@ class AESCipher():
             enc = base64.b64decode(enc)
             iv = enc[:AES.block_size]
             cipher = AES.new(self.key, AES.MODE_CBC, iv)
-            return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('cp1252')
+            return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
         except Exception as e:
             self.obj_logger.error_logger("Error AESCipher decrypt : " + str(e))
             raise custom_exception.UserException(exception_str.UserExceptionStr.some_error_occurred)
@@ -264,4 +275,20 @@ class AESCipher():
             return s[:-ord(s[len(s)-1:])]
         except Exception as e:
             self.obj_logger.error_logger("Error AESCipher _unpad : " + str(e))
+            raise custom_exception.UserException(exception_str.UserExceptionStr.some_error_occurred)
+
+    def generate_key(self, key):
+        """
+        This method is used for creating key for aes cipher
+        :param input: token number
+        :return: sha256 of the input
+        """
+        try:
+            token_key = hashlib.sha256(key.encode()).hexdigest()
+            l1_token_key = token_key[:l1_start] + token_key[l1_end:]
+            l2_token_key = hashlib.sha256(l1_token_key.encode()).hexdigest()
+            l2_token_key = l2_token_key[l2_start:l2_end]
+            return l2_token_key
+        except Exception as e:
+            self.obj_logger.error_logger("Error generate_key : " + str(e))
             raise custom_exception.UserException(exception_str.UserExceptionStr.some_error_occurred)
