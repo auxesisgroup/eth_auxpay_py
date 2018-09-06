@@ -16,14 +16,14 @@ logs_directory, category= common_util.get_config(log)
 # Common Methods for eth and erc
 obj_common = common_util.CommonUtil(log=log)
 
-def create_contract_object(con,abi_file,contract_address):
+def create_contract_object(abi_file,contract_address):
     """
     Create Contract Object
     """
     try:
         with open(abi_file, 'r') as abi_definition:
             abi = json.load(abi_definition)
-        return con.eth.contract(address=contract_address, abi=abi)
+        return web3.Web3().eth.contract(address=contract_address, abi=abi)
     except Exception as e:
         obj_logger = common_util.MyLogger(logs_directory, category)
         obj_logger.error_logger('Error create_contract_object : ' + str(e))
@@ -42,8 +42,7 @@ def get_token_balance(user_name, user_address,contract_address):
             raise custom_exception.UserException(exception_str.UserExceptionStr.not_user_address)
 
         # Create Contract Object
-        con = obj_common.blockchain_connection(common_util.url)
-        obj_contract = create_contract_object(con,abi_file,contract_address)
+        obj_contract = create_contract_object(abi_file,contract_address)
 
         # RPC
         method = 'eth_call'
@@ -71,7 +70,7 @@ def get_token_balance(user_name, user_address,contract_address):
         raise custom_exception.UserException(exception_str.UserExceptionStr.bad_request)
 
 
-def get_fee(unit='ether'):
+def get_fee():
     """
     To Get Token Transfer Fee
     """
@@ -80,7 +79,7 @@ def get_fee(unit='ether'):
         con = obj_common.blockchain_connection(common_util.url)
         # RPC
         gas_price = con.eth.gasPrice
-        fee = web3.Web3().fromWei(gas_limit*gas_price,unit=unit)
+        fee = gas_limit*gas_price
         return fee
 
     except Exception as e:
@@ -95,7 +94,7 @@ def sign_transaction(from_address, to_address, value, contract_address, private_
     """
     try:
         con = obj_common.blockchain_connection(common_util.url)
-        obj_contract = create_contract_object(con, abi_file, contract_address)
+        obj_contract = create_contract_object(abi_file, contract_address)
 
         data = obj_contract.encodeABI('transfer', args=[to_address, value])
 
@@ -104,12 +103,12 @@ def sign_transaction(from_address, to_address, value, contract_address, private_
             'from': from_address,
             'to': contract_address,
             'data': data,
-            'gas': 210001,
+            'gas': gas_limit,
             'gasPrice': con.eth.gasPrice,
             'nonce': con.eth.getTransactionCount(from_address),
         }
 
-        signed = con.eth.account.signTransaction(transaction, private_key)
+        signed = web3.Web3().eth.account.signTransaction(transaction, private_key)
         return signed.rawTransaction.hex()
 
     except Exception as e:
@@ -118,7 +117,7 @@ def sign_transaction(from_address, to_address, value, contract_address, private_
         raise custom_exception.UserException(exception_str.UserExceptionStr.bad_request)
 
 
-def transfer_token(user_name, from_address, to_address, value ,contract_address):
+def transfer_token(user_name, token, from_address, to_address, value ,contract_address):
     """
     To Transfer Token
     """
@@ -135,15 +134,18 @@ def transfer_token(user_name, from_address, to_address, value ,contract_address)
         eth_balance_wei = obj_common.get_ether_balance(from_address)
 
         # Transaction Fee in
-        tx_fee = get_fee()
+        tx_fee_wei = get_fee()
 
         # Check if the transaction fee > eth_balance
-        if tx_fee > eth_balance_wei:
+        if tx_fee_wei > eth_balance_wei:
             raise custom_exception.UserException(exception_str.UserExceptionStr.insufficient_funds_ether)
 
-        # TODO - Encryption/Decryption
+        # Decrypt Private Key
         obj_logger = common_util.MyLogger(logs_directory, category)
-        private_key = models.find_sql(logger=obj_logger, table_name='address_master', filters={'address':from_address})[0]['private_key']
+        enc_private_key = models.find_sql(logger=obj_logger, table_name='address_master',filters={'user_name': user_name, 'address': from_address})[0]['private_key']
+        if not enc_private_key:
+            raise custom_exception.UserException(exception_str.UserExceptionStr.not_user_address)
+        private_key = common_util.AESCipher(token, log).decrypt(enc_private_key)
 
         # Create Transaction Sign
         sign = sign_transaction(from_address=from_address, to_address=to_address, value=value, contract_address=contract_address, private_key=private_key)

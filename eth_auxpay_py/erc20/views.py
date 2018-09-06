@@ -6,6 +6,7 @@ import exception_str
 import custom_exception
 import common_util
 from . import util
+import web3
 
 
 obj_common = common_util.CommonUtil(log=util.log)
@@ -60,7 +61,7 @@ def get_fee(request):
             common_util.check_if_present(user_name, token)
 
             # Get Balance
-            fee = util.get_fee()
+            fee = web3.Web3.fromWei(util.get_fee(),unit='ether')
             return JsonResponse({'fee' : str(fee),'status':200})
 
         except custom_exception.UserException as e:
@@ -94,7 +95,7 @@ def forward_token(request):
             common_util.check_if_present(user_name, token, from_address, to_address, value, contract_address)
 
             # Transfer Token
-            tx_hash = util.transfer_token(user_name = user_name, from_address=from_address, to_address=to_address, value=int(value), contract_address=contract_address)
+            tx_hash = util.transfer_token(user_name = user_name, token=token, from_address=from_address, to_address=to_address, value=int(value), contract_address=contract_address)
 
             return JsonResponse({'tx_status':'Initiated','tx_hash' : str(tx_hash), 'status':200})
 

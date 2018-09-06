@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'get_fee/$', view=views.get_fee, name='get_fee'),
     url(r'get_balance/$', view=views.get_balance, name='get_balance'),
     url(r'generate_address/$', view=views.generate_address, name='generate_address'),
+    url(r'forward_ethereum/$', view=views.forward_ethereum, name='forward_ethereum'),
 ]

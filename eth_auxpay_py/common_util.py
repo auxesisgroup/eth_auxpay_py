@@ -203,7 +203,7 @@ class CommonUtil():
             obj_logger.error_logger('Error blockchain_connection : ' + str(e))
             raise custom_exception.UserException(exception_str.UserExceptionStr.bad_request)
 
-    def get_ether_balance(self, address, unit='ether'):
+    def get_ether_balance(self, address):
         """
         To get balance
         :param address:
@@ -214,7 +214,7 @@ class CommonUtil():
             method = 'eth_getBalance'
             params = [address, 'latest']
             response = self.rpc_request(url, method, params)
-            return web3.Web3().fromWei(int(response['result'], 16), unit=unit)
+            return int(response['result'], 16)
 
         except Exception as e:
             obj_logger = MyLogger(self.logs_directory , self.category)
