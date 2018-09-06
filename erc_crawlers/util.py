@@ -9,7 +9,7 @@ import os
 import datetime
 
 # Config Source
-conf_file = r'/var/eth_conf/conf.ini'
+conf_file = '../conf.ini'
 config = configparser.RawConfigParser()
 config.read(conf_file)
 
