@@ -9,7 +9,7 @@ import os
 import datetime
 
 # Config Source
-conf_file = '../conf.ini'
+conf_file = '/var/www/eth_auxpay_py/conf.ini'
 config = configparser.RawConfigParser()
 config.read(conf_file)
 

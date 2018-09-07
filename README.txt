@@ -9,23 +9,25 @@ Create Directory for logs :
 	/var/log/eth_logs/hook_main/
 	/var/log/eth_logs/hook_exception/
 
-
+-------------------------------------------------------
+*optional - sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3
 Apache2 config
 
-/etc/apache2/sites-enabled/000-default.conf
+sudo apt install apache2-dev
+sudo python3.6 -m pip install mod_wsgi
+------------------------------------------------------------------------
+wsgi.py
 
-<VirtualHost *:80>
+import os
+import sys
 
-        ServerName eth_auxpay.org
-        ServerAlias www.eth_auxpay.org
-        ServerAdmin Jitender.Bhutani@auxesisgroup.com
+sys.path.append('/var/www')
+sys.path.append('/var/www/eth_auxpay_py')
+sys.path.append('/usr/local/lib/python3.6/dist-packages')
 
-        WSGIDaemonProcess api
-        WSGIScriptAlias /api /var/www/eth_auxpay_py/eth_auxpay_py/wsgi.py process-group=api application-group=%{GLOBAL}
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "eth_auxpay_py.settings")
 
-        ErrorLog /var/www/logs/error.logs
-        CustomLog /var/www/logs/custom.log combined
-
-</VirtualHost>
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
 
 
