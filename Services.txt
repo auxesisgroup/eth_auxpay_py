@@ -1,0 +1,13 @@
+Python Jobs (ERC and eth crawlers)
+	nohup python3.6 /var/www/erc_crawlers/block_crawlers.py
+	nohup python3.6 /var/www/erc_crawlers/mempool_crawlers.py
+	nohup python3.6 /var/www/erc_crawlers/hook_consumer.py
+	nohup python3.6 /var/www/erc_crawlers/hook_consumer_exception.py
+	nohup python3.6 /var/www/eth_crawlers/block_crawlers.py
+	nohup python3.6 /var/www/eth_crawlers/mempool_crawlers.py
+	nohup python3.6 /var/www/eth_crawlers/hook_consumer.py
+	nohup python3.6 /var/www/eth_crawlers/hook_consumer_exception.py
+
+
+End Points 
+	Apache2 -  /var/www/eth_auxpay_py

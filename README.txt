@@ -10,3 +10,22 @@ Create Directory for logs :
 	/var/log/eth_logs/hook_exception/
 
 
+Apache2 config
+
+/etc/apache2/sites-enabled/000-default.conf
+
+<VirtualHost *:80>
+
+        ServerName eth_auxpay.org
+        ServerAlias www.eth_auxpay.org
+        ServerAdmin Jitender.Bhutani@auxesisgroup.com
+
+        WSGIDaemonProcess api
+        WSGIScriptAlias /api /var/www/eth_auxpay_py/eth_auxpay_py/wsgi.py process-group=api application-group=%{GLOBAL}
+
+        ErrorLog /var/www/logs/error.logs
+        CustomLog /var/www/logs/custom.log combined
+
+</VirtualHost>
+
+
