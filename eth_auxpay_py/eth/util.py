@@ -17,6 +17,7 @@ redis_conn = redis.Redis(connection_pool=pool)
 
 # Gas Limit
 gas_limit = int(common_util.config.get('eth', 'gas_limit'))
+chainId = int(common_util.config.get('node', 'chain_id'))
 
 # Log
 log = 'eth_end_points'
@@ -121,8 +122,8 @@ def sign_transaction(from_address, to_address, value, private_key):
             'value': web3.Web3().toHex(value),
             'gas': gas_limit,
             'gasPrice': con.eth.gasPrice,
-            'nonce': con.eth.getTransactionCount(from_address),
-            'chainId' : 3,
+            'nonce': con.eth.getTransactionCount(web3.Web3().toChecksumAddress(from_address)),
+            'chainId' : chainId,
         }
 
         signed = web3.Account.signTransaction(transaction, private_key)

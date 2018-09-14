@@ -105,7 +105,7 @@ def sign_transaction(from_address, to_address, value, contract_address, private_
             'data': data,
             'gas': gas_limit,
             'gasPrice': con.eth.gasPrice,
-            'nonce': con.eth.getTransactionCount(from_address),
+            'nonce': con.eth.getTransactionCount(web3.Web3().toChecksumAddress(from_address)),
         }
 
         signed = web3.Account.signTransaction(transaction, private_key)
