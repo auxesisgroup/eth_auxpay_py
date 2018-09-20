@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 """
 
 import os
+import sys
 
 sys.path.append('/var/www')
 sys.path.append('/var/www/eth_auxpay_py')
