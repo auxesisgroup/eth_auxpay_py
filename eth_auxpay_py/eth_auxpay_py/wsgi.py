@@ -11,7 +11,7 @@ import os
 import sys
 
 sys.path.append('/var/www')
-sys.path.append('/var/www/eth_auxpay_py')
+sys.path.append('/var/www/eth_auxpay_py/eth_auxpay_py')
 sys.path.append('/usr/local/lib/python3.6/dist-packages')
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "eth_auxpay_py.settings")
