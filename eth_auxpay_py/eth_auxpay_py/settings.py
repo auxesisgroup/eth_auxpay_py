@@ -25,7 +25,7 @@ SECRET_KEY = 'sky1a#7dgo+3if1sz6$unijl2zyjm_mxm#25cy$%#cda-ii*1n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','142.93.55.2']
 
 
 # Application definition

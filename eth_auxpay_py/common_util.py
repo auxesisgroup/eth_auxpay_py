@@ -16,7 +16,7 @@ from Crypto import Random
 from django.http import JsonResponse
 
 # Config
-conf_file = '../conf.ini'
+conf_file = '/var/www/conf.ini'
 config = configparser.RawConfigParser()
 config.read(conf_file)
 

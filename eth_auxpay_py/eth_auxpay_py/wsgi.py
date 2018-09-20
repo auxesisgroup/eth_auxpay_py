@@ -12,8 +12,8 @@ import sys
 
 sys.path.append('/var/www')
 sys.path.append('/var/www/eth_auxpay_py')
-sys.path.append('/usr/local/lib/python3.6')
-sys.path.append('/usr/local/lib/python3.6/dist-packages/mod_wsgi/server')
+sys.path.append('/usr/local/lib/python3.6/dist-packages')
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "eth_auxpay_py.settings")
 
 from django.core.wsgi import get_wsgi_application

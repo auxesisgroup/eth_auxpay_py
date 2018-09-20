@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import pymysql
 import configparser
+import common_util
 
 # Create your models here.
 
@@ -11,14 +12,14 @@ def get_db_connect(logger):
     :return: DB object
     """
     try:
-        conf_file = r'/var/eth_conf/conf.ini'
+        conf_file = common_util.conf_file
         parser = configparser.RawConfigParser()
         parser.read(conf_file)
         db = pymysql.connect(
-            host = parser.get('sql', 'host'),
-            user = parser.get('sql', 'user'),
-            passwd = parser.get('sql', 'passwd'),
-            db = parser.get('sql', 'db')
+            host = common_util.config.get('sql', 'host'),
+            user = common_util.config.get('sql', 'user'),
+            passwd = common_util.config.get('sql', 'passwd'),
+            db = common_util.config.get('sql', 'db')
         )
         return db
     except Exception as e:
