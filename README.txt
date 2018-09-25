@@ -1,1 +1,1 @@
-Etherum Payment Gateway
+Auxpay : Ethereum Payment Gateway
